@@ -1,34 +1,28 @@
 import { StatusBar } from 'expo-status-bar';
-import {ActivityIndicator, Button, Pressable, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Main} from "./src/Main";
+import { NavigationContainer } from '@react-navigation/native';
+
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App</Text>
-      <ActivityIndicator size="large" />
-      <Button
-          onPress={()=>{}}
-          title="Вход"
-          color="#841584"
-          accessibilityLabel="Learn more about this purple button"
-      />
-      <Pressable onPress={()=>{}}>
-        <Text>I'm pressable!</Text>
-      </Pressable>
+      <NavigationContainer>
+          <View style={styles.container}>
+              <Main/>
 
-      <TouchableOpacity>
-        <Text>Press Here</Text>
-      </TouchableOpacity>
-      <StatusBar style="auto" />
-    </View>
+              <TouchableOpacity>
+                  <Text>Press Here</Text>
+              </TouchableOpacity>
+              <StatusBar style="auto" />
+          </View>
+      </NavigationContainer>
+
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#eeb4d8',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#ccf4fd',
   },
 });
