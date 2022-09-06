@@ -1,55 +1,67 @@
-import React, {useEffect, useState} from 'react';
-import {FlatList, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {api, PokemonItem} from "../../api/api";
+import React, {useEffect} from 'react';
+import {FlatList, ImageBackground, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {PADDING} from "../../constants/constants";
+import {useAppNavigation} from "../types";
+import {useAppDispatch, useAppSelector} from "../../store/store";
+import {getAllPokemonTC} from "../../store/root";
 
-
+const image = { uri: "https://slovnet.ru/wp-content/uploads/2018/08/23-36.jpg" };
 
 export const Pokemons = () => {
-    const [pokemons,setPokemons] = useState<PokemonItem[]>([])
-    useEffect(()=>{
-        api.getAllPokemon().then((res)=>{
-           setPokemons(res.data.results)
-        })
-    },[])
-    return (
-        //style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
-         <View style={styles.container} >
-            <FlatList
+    const navigation = useAppNavigation()
+    const dispatch = useAppDispatch()
+const pokemons = useAppSelector(state => state.root.allPokemon)
 
-                data={pokemons}
-                numColumns={2}
-                contentContainerStyle={{paddingHorizontal:PADDING }}
-                columnWrapperStyle={{justifyContent:'space-around'}}
-                renderItem={({item})=>{
-                    return <TouchableOpacity style={styles.box}>
-                        <Text style={styles.text}>{item.name}</Text>
-                    </TouchableOpacity>
-                }}
-                keyExtractor={(item,index)=> `${item.name}.${index}`}
-            />
-            {/*<Text>{JSON.stringify(pokemons,null,2)}</Text>*/}
+    useEffect(() => {
+
+        // @ts-ignore
+        dispatch(getAllPokemonTC())
+    }, [])
+
+    return (
+        <View style={styles.container}>
+            <ImageBackground source={image} resizeMode="cover" >
+                <FlatList
+                    data={pokemons}
+                    numColumns={2}
+                    contentContainerStyle={{paddingHorizontal: PADDING}}
+                    columnWrapperStyle={{justifyContent: 'space-around'}}
+                    renderItem={({item}) => {
+                        return <TouchableOpacity
+                            onPress={()=>{
+                                navigation.navigate('CurrentPokemon',{url:item.url})
+                            }}
+                            style={styles.box}>
+                            <Text style={styles.text}>{item.name}</Text>
+                        </TouchableOpacity>
+                    }}
+                    keyExtractor={(item, index) => `${item.name}.${index}`}
+                />
+            </ImageBackground>
+
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     box: {
-        alignItems:'center',
-        backgroundColor: '#86dca8',
-        paddingVertical:10,
-        paddingHorizontal:10,
-        marginVertical:5,
-        width:'40%',
-        borderRadius:5,
-        borderWidth:1,
+        alignItems: 'center',
+        backgroundColor: '#99c9ad',
+        paddingVertical: 10,
+        paddingHorizontal: 10,
+        marginVertical: 5,
+        width: '40%',
+        borderRadius: 5,
+        borderWidth: 1,
+        opacity:0.9,
     },
-    text:{
-        fontSize:18,
-        fontWeight:'500',
-        color:'#1f3d2b',
+    text: {
+        fontSize: 18,
+        fontWeight: '500',
+        color: '#100f0f',
     },
-    container:{
-        backgroundColor: '#cbe5f1',
+    container: {
+        flex: 1,
+       // backgroundColor: '#cbe5f1',
     }
 });
