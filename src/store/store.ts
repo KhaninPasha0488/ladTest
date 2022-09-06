@@ -2,7 +2,7 @@ import thunkMiddleware from 'redux-thunk'
 import {configureStore, combineReducers} from '@reduxjs/toolkit'
 import {TypedUseSelectorHook, useDispatch, useSelector,} from "react-redux"
 import {root} from "./root";
-// объединяя reducer-ы с помощью combineReducers,
+
 export const rootReducer = combineReducers({
   root,
 })

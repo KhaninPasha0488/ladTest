@@ -8,6 +8,7 @@ import {getAllPokemonTC} from "../../store/root";
 const image = { uri: "https://slovnet.ru/wp-content/uploads/2018/08/23-36.jpg" };
 
 export const Pokemons = () => {
+
     const navigation = useAppNavigation()
     const dispatch = useAppDispatch()
 const pokemons = useAppSelector(state => state.root.allPokemon)
@@ -19,8 +20,9 @@ const pokemons = useAppSelector(state => state.root.allPokemon)
     }, [])
 
     return (
+
         <View style={styles.container}>
-            <ImageBackground source={image} resizeMode="cover" >
+            <ImageBackground source={image} resizeMode="cover" style={styles.image} >
                 <FlatList
                     data={pokemons}
                     numColumns={2}
@@ -62,6 +64,8 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-       // backgroundColor: '#cbe5f1',
+    },
+    image:{
+        height:"100%"
     }
 });

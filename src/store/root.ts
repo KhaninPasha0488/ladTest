@@ -2,7 +2,7 @@ import {createAction, createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {api, PokemonItem, PokemonT} from "../api/api";
 
 export const getAllPokemonTC = createAsyncThunk<PokemonItem[] | undefined,void>(
-    "root/getAllPokemon",async ()=>{
+    "root/getAllPokemon",async (_)=>{
        try{
 const res = await api.getAllPokemon()
          return res.data.results

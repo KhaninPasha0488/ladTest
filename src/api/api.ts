@@ -25,7 +25,7 @@ export type PokemonT = {
 
 export const api = {
     getAllPokemon() {
-        return instance.get<{ results: PokemonItem[] }>('/pokemon')
+        return instance.get<{ results: PokemonItem[] }>('/pokemon?limit=100&offset=0')
     },
     getCurrentPokemon(url: string) {
         return instance.get<PokemonT>(url.replace(BASE_URL, ""))
